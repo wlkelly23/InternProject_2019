@@ -71,12 +71,7 @@ while True:
             face_x_avg = (face_x_min + face_x_max)/2
             face_y_avg = (face_y_min + face_y_max)/2
 
-
-            # 如果要執行遊戲使用下面這行:
-            face_center_points.append((x+(w/2), y+(h/2)))
-
-            # 如果要推算速度使用下面這行:
-            # face_center_points.append((face_x_avg, face_y_avg))
+            face_center_points.append((face_x_avg, face_y_avg))
 
             face_detection = True
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -86,10 +81,10 @@ while True:
             # if time.time() - last_thr_time > thr_sec:
 
             if (len(face_center_points) >= 2):
-                if (face_center_points[-1][0] - face_center_points[-2][0]) > 5 :
+                if (face_center_points[-1][0] - face_center_points[-2][0]) > 0.004 :
                     browser.find_element_by_id("gameframe").send_keys(Keys.ARROW_LEFT)
                     face_location.append("左")
-                elif (face_center_points[-1][0] - face_center_points[-2][0]) < -5:
+                elif (face_center_points[-1][0] - face_center_points[-2][0]) < -0.004:
                     browser.find_element_by_id("gameframe").send_keys(Keys.ARROW_RIGHT)
                     face_location.append("右")
                 else:
